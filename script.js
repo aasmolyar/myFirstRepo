@@ -11,30 +11,29 @@ screenPrice = prompt('Сколько будет стоить данная раб
 
 let rollback = 90;
 let fullPrice = 1000000;
+let service1 = prompt('Какой дополнительный тип услуги нужен?');
+let servicePrice1 = prompt('Сколько это будет стоить?');
+let service2 = prompt('Какой дополнительный тип услуги нужен?');
+let servicePrice2 = prompt('Сколько это будет стоить?');
 fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
 let adaptive = true;
 adaptive = prompt('Нужен ли адаптив на сайте?');
 
-let service1 = prompt('Какой дополнительный тип услуги нужен?');
-let servicePrice1 = prompt('Сколько это будет стоить?');
-let service2 = prompt('Какой дополнительный тип услуги нужен?');
-let servicePrice2 = prompt('Сколько это будет стоить?');
-
 let servicePercentPrice = fullPrice - rollback;
 console.log(math.cell(servicePercentPrice));
 
 if (fullPrice >= 30000) {
-    console.log('Даем скидку в 10%')
+    console.log('Даем скидку в 10%');
 
-} else if (15000 <= fullPrice && fullPrice <= 30000) {
-    console.log('Даем скидку в %')
+} else if (15000 < fullPrice && fullPrice < 30000) {
+    console.log('Даем скидку в 5%');
 
 } else if (0 <= fullPrice && fullPrice <= 15000) {
-    console.log('Скидка не предусмотрена')
+    console.log('Скидка не предусмотрена');
 
-} else (fullPrice <= 0) {
-    console.log('Что то пошло не так')
+} else if (fullPrice < 0) {
+    console.log('Что то пошло не так');
 }
 
 console.log(typeof title);
