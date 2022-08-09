@@ -33,7 +33,7 @@ const getTitle = function () {
 function getServicePercentPrices(fullPrice, rollback) {
     return fullPrice - (fullPrice * (rollback / 100));
 }
-//lesson 04-----------------------------------
+//lesson 04--------------------------------
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof vatiable);
