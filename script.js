@@ -9,7 +9,7 @@ let service2 = prompt('Какой дополнительный тип услуг
 let servicePrice2 = prompt('Сколько это будет стоить?');
 let rollback = 10;
 let fullPrice = getFullPrice();
-let adaptive = prompt('Нужен ли адаптив на сайте?');
+let adaptive = confirm('Нужен ли адаптив на сайте?');
 let servicePercentPrice = getServicePercentPrices();
 
 //lesson 04-----------------------------------
@@ -17,7 +17,7 @@ let allServicePrices = getAllServicePrices();
 //lesson 04-----------------------------------
 
 //lesson 04-----------------------------------
-const getAllServicePrices = function (servicePrice1, servicePrice2) {
+function getAllServicePrices(servicePrice1, servicePrice2) {
     return servicePrice1 + servicePrice2;
 }
 
