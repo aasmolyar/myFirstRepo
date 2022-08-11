@@ -24,7 +24,7 @@ const getFullPrice = function () {
 }
 
 const getTitle = function () {
-    let newStr = title.charAt(0).toUpperCase() + str.slice(1);
+    let newStr = title.charAt(0).toUpperCase() + title.slice(1);
     return newStr;
 }
 
