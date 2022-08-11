@@ -18,18 +18,18 @@ const isNumber = function (num) {
 const asking = function () {
     title = prompt('Как называется ваш проект?', "Калькулятор верстки");
     screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
-    screenPrice = prompt('Сколько будет стоить данная работа?');
 
-    while (!isNumber(screenPrice)) {
-        screenPrice = prompt('Сколько будет стоить данная работа?');
-    }
+    do {
+        screenPrice = +prompt('Сколько будет стоить данная работа?');
+    } while (!isNumber(screenPrice));
 
-    adaptive = prompt('Нужен ли адаптив на сайте?');
+    adaptive = confirm('Нужен ли адаптив на сайте?');
 }
 
 const getAllServicePrices = function () {
-    //    return servicePrice1 + servicePrice2;
+
     let sum = 0;
+    let servicePrice;
 
     for (let i = 0; i < 2; i++) {
 
@@ -39,7 +39,11 @@ const getAllServicePrices = function () {
             service2 = prompt('Какой дополнительный тип услуги нужен?');
         }
 
-        sum += +prompt('Сколько это будет стоить?');
+        do {
+            servicePrice = +prompt('Сколько это будет стоить?');
+        } while (!isNumber(servicePrice));
+
+        sum += servicePrice;
     }
 
     return sum;
@@ -50,8 +54,8 @@ const getFullPrice = function () {
 }
 
 const getTitle = function () {
-    let newStr = title.charAt(0).toUpperCase() + str.slice(1);
-    return newStr;
+    let newStr = title.trim().toLowerCase();
+    return newStr.charAt(0).toUpperCase() + newStr.slice(1);
 }
 
 const getServicePercentPrices = function (fullPrice, rollback) {
@@ -60,7 +64,7 @@ const getServicePercentPrices = function (fullPrice, rollback) {
 //lesson 04--------------------------------
 
 const showTypeOf = function (variable) {
-    console.log(variable, typeof vatiable);
+    console.log(variable, typeof variable);
 }
 
 const getRollbackMessage = function (price) {
@@ -81,7 +85,7 @@ const getRollbackMessage = function (price) {
 asking()
 allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
-servicePercentPrice = getServicePercentPrices();
+servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
 title = getTitle();
 
 showTypeOf(title);
@@ -89,7 +93,6 @@ showTypeOf(fullPrice);
 showTypeOf(adaptive);
 
 console.log("allServicePrices", allServicePrices);
-
 console.log(screens.toLowerCase().split());
 console.log(getRollbackMessage(fullPrice));
-console.log(getServicePercentPrices());
+console.log(servicePercentPrice);
