@@ -3,7 +3,7 @@
 let title = prompt('Как называется ваш проект?');
 let screens = prompt('Какие типы экранов нужно разработать?');
 let screenPrice = prompt('Сколько будет стоить данная работа?');
-let adaptive = prompt('Нужен ли адаптив на сайте?');
+let adaptive = confirm('Нужен ли адаптив на сайте?');
 
 let service1 = prompt('Какой дополнительный тип услуги нужен?');
 let servicePrice1 = prompt('Сколько это будет стоить?');
@@ -15,7 +15,6 @@ let allServicePrices;
 let fullPrice;
 let servicePercentPrice;
 
-//lesson 04-----------------------------------
 const getAllServicePrices = function () {
     return servicePrice1 + servicePrice2;
 }
@@ -32,7 +31,6 @@ const getTitle = function () {
 const getServicePercentPrices = function (fullPrice, rollback) {
     return fullPrice - (fullPrice * (rollback / 100));
 }
-//lesson 04--------------------------------
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof vatiable);
