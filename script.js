@@ -16,6 +16,7 @@ const isNumber = function (num) {
 }
 
 const asking = function () {
+
     title = prompt('Как называется ваш проект?', "Калькулятор верстки");
     screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
 
