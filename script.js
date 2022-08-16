@@ -12,7 +12,7 @@ let fullPrice;
 let servicePercentPrice;
 
 const isNumber = function (num) {
-    return !isNaN(parseFloat(num) && isFinite());
+    return !isNaN(parseFloat(num) && isFinite(num));
 }
 
 const asking = function () {
@@ -21,8 +21,8 @@ const asking = function () {
     screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
 
     do {
-        screenPrice = +prompt('Сколько будет стоить данная работа?');
-    } while (!isNumber(screenPrice));
+        screenPrice = prompt('Сколько будет стоить данная работа?');
+    } while (!isNumber(screenPrice) || screenPrice === null || screenPrice === "");
 
     adaptive = confirm('Нужен ли адаптив на сайте?');
 }
@@ -41,10 +41,10 @@ const getAllServicePrices = function () {
         }
 
         do {
-            servicePrice = +prompt('Сколько это будет стоить?');
-        } while (!isNumber(servicePrice));
+            servicePrice = prompt('Сколько это будет стоить?');
+        } while (!isNumber(servicePrice) || servicePrice === null || servicePrice === "");
 
-        sum += servicePrice;
+        sum += +servicePrice;
     }
 
     return sum;
@@ -69,6 +69,7 @@ const showTypeOf = function (variable) {
 }
 
 const getRollbackMessage = function (price) {
+
     if (price >= 30000) {
         return 'Даем скидку в 10%';
 
