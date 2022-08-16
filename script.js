@@ -16,13 +16,12 @@ const isNumber = function (num) {
 }
 
 const asking = function () {
-
     title = prompt('Как называется ваш проект?', "Калькулятор верстки");
     screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
 
     do {
         screenPrice = prompt('Сколько будет стоить данная работа?');
-    } while (!isNumber(screenPrice) || screenPrice === null || screenPrice === "");
+    } while (!isNumber(screenPrice));
 
     adaptive = confirm('Нужен ли адаптив на сайте?');
 }
@@ -30,9 +29,9 @@ const asking = function () {
 const getAllServicePrices = function () {
 
     let sum = 0;
-    let servicePrice;
 
     for (let i = 0; i < 2; i++) {
+        let price = 0;
 
         if (i === 0) {
             service1 = prompt('Какой дополнительный тип услуги нужен?');
@@ -41,17 +40,17 @@ const getAllServicePrices = function () {
         }
 
         do {
-            servicePrice = prompt('Сколько это будет стоить?');
-        } while (!isNumber(servicePrice) || servicePrice === null || servicePrice === "");
+            price = prompt('Сколько это будет стоить?');
+        } while (!isNumber(price));
 
-        sum += +servicePrice;
+        sum += +price;
     }
 
     return sum;
 }
 
 const getFullPrice = function () {
-    return screenPrice + allServicePrices;
+    return +screenPrice + allServicePrices;
 }
 
 const getTitle = function () {
@@ -59,26 +58,18 @@ const getTitle = function () {
     return newStr.charAt(0).toUpperCase() + newStr.slice(1);
 }
 
-const getServicePercentPrices = function (fullPrice, rollback) {
+const getServicePercentPrices = function () {
     return fullPrice - (fullPrice * (rollback / 100));
-}
-//lesson 04--------------------------------
-
-const showTypeOf = function (variable) {
-    console.log(variable, typeof variable);
 }
 
 const getRollbackMessage = function (price) {
 
     if (price >= 30000) {
         return 'Даем скидку в 10%';
-
     } else if (price >= 15000 && fullPrice < 30000) {
         return 'Даем скидку в 5%';
-
     } else if (price >= 0 && fullPrice < 15000) {
         return 'Скидка не предусмотрена';
-
     } else {
         return 'Что то пошло не так';
     }
@@ -89,10 +80,6 @@ allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
 servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
 title = getTitle();
-
-showTypeOf(title);
-showTypeOf(fullPrice);
-showTypeOf(adaptive);
 
 console.log("allServicePrices", allServicePrices);
 console.log(screens.toLowerCase().split());
