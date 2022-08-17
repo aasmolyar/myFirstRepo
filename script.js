@@ -16,18 +16,6 @@ const appData = {
         return !isNaN(parseFloat(num) && isFinite(num));
     },
 
-    /*     asking: function () {
-    
-            appData.title = prompt('Как называется ваш проект?', "Калькулятор верстки");
-            appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
-    
-            do {
-                appData.screenPrice = prompt('Сколько будет стоить данная работа?');
-            } while (!appData.isNumber(appData.screenPrice));
-    
-            appData.adaptive = confirm('Нужен ли адаптив на сайте?');
-        }, */
-
     start: function () {
 
         function asking() {
