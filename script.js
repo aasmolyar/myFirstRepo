@@ -16,15 +16,38 @@ const appData = {
         return !isNaN(parseFloat(num) && isFinite(num));
     },
 
-    asking: function () {
-        appData.title = prompt('Как называется ваш проект?', "Калькулятор верстки");
-        appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
+    /*     asking: function () {
+    
+            appData.title = prompt('Как называется ваш проект?', "Калькулятор верстки");
+            appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
+    
+            do {
+                appData.screenPrice = prompt('Сколько будет стоить данная работа?');
+            } while (!appData.isNumber(appData.screenPrice));
+    
+            appData.adaptive = confirm('Нужен ли адаптив на сайте?');
+        }, */
 
-        do {
-            appData.screenPrice = prompt('Сколько будет стоить данная работа?');
-        } while (!isNumber(appData.screenPrice));
+    start: function () {
 
-        appData.adaptive = confirm('Нужен ли адаптив на сайте?');
+        function asking() {
+            appData.title = prompt('Как называется ваш проект?', "Калькулятор верстки");
+            appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные");
+
+            do {
+                appData.screenPrice = prompt('Сколько будет стоить данная работа?');
+            } while (!appData.isNumber(appData.screenPrice));
+
+            appData.adaptive = confirm('Нужен ли адаптив на сайте?');
+        }
+        asking();
+
+        function logger() {
+            for (let key in appData) {
+                console.log('Ключ:' + key + ' ' + 'Значение:' + appData[key]);
+            }
+        }
+        logger();
     },
 
     getAllServicePrices: function () {
@@ -38,7 +61,7 @@ const appData = {
             }
             do {
                 price = prompt('Сколько это будет стоить?');
-            } while (!isNumber(price));
+            } while (!appData.isNumber(price));
             sum += +price;
         }
         return sum;
@@ -49,7 +72,7 @@ const appData = {
     },
 
     getTitle: function () {
-        return appData.title.trim()[0].toUpperCase() + appData.title.trim().substr(1).toLowerase();
+        return appData.title.trim()[0].toUpperCase() + appData.title.trim().substr(1).toLowerCase();
     },
 
     getServicePercentPrices: function () {
@@ -70,7 +93,7 @@ const appData = {
     }
 }
 
-appData.asking();
+appData.start();
 appData.fullPrice = appData.getFullPrice();
 appData.allServicePrices = appData.getAllServicePrices();
 appData.servicePercentPrice = appData.getServicePercentPrices();
