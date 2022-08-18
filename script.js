@@ -28,40 +28,38 @@ const appData = {
         return isNaN(parseFloat(str) && isFinite(str));
     },
 
-    stringChecking: function (question) {
+    stringChecking: function (question, defaultValue) {
+        let result;
         do {
-            question;
-        } while (!appData.isString(question));
-        return question;
+            result = prompt(question, defaultValue);
+        } while (!appData.isString(result));
+        return result;
+    },
+
+    numberChecking: function (question) {
+        let result;
+        do {
+            result = prompt(question);
+        } while (!appData.isNumber(result));
+        return result;
     },
 
     asking: function () {
-        let title = prompt('Как называется ваш проект?', "Калькулятор верстки");
-
-        stringChecking(title);
-        /*         do {
-                    title = prompt('Как называется ваш проект?', "Калькулятор верстки");
-                } while (!appData.isString(title)); */
-        appData.title = question;
+        appData.title = appData.stringChecking('Как называется ваш проект?', "Калькулятор верстки");
 
         for (let i = 0; i < 2; i++) {
-            let name = prompt('Какие типы экранов нужно разработать?');
+            let name = appData.stringChecking('Какие типы экранов нужно разработать?');
             let price = 0;
 
-            do {
-                price = prompt('Сколько будет стоить данная работа?');
-            } while (!appData.isNumber(price));
-
+            price = appData.numberChecking('Сколько будет стоить данная работа?');
             appData.screens.push({ id: i, name: name, price: price })
         }
 
         for (let i = 0; i < 2; i++) {
-            let name = prompt('Какой дополнительный тип услуги нужен?');
+            let name = appData.stringChecking('Какой дополнительный тип услуги нужен?');
             let price = 0;
 
-            do {
-                price = prompt('Сколько это будет стоить?');
-            } while (!appData.isNumber(price));
+            price = appData.numberChecking('Сколько это будет стоить?');
             appData.services[name] = +price;
         }
 
