@@ -24,8 +24,25 @@ const appData = {
         return !isNaN(parseFloat(num) && isFinite(num));
     },
 
+    isString: function (str) {
+        return isNaN(parseFloat(str) && isFinite(str));
+    },
+
+    stringChecking: function (question) {
+        do {
+            question;
+        } while (!appData.isString(question));
+        return question;
+    },
+
     asking: function () {
-        appData.title = prompt('Как называется ваш проект?', "Калькулятор верстки");
+        let title = prompt('Как называется ваш проект?', "Калькулятор верстки");
+
+        stringChecking(title);
+        /*         do {
+                    title = prompt('Как называется ваш проект?', "Калькулятор верстки");
+                } while (!appData.isString(title)); */
+        appData.title = question;
 
         for (let i = 0; i < 2; i++) {
             let name = prompt('Какие типы экранов нужно разработать?');
