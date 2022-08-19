@@ -1,12 +1,12 @@
 'use strict'
 
-const title = document.getElementsByTagName('h1');
-console.log(title[0]);
+const title = document.getElementsByTagName('h1')[0];
+console.log(title);
 
-const get = document.getElementsByClassName('handler_btn');
-console.log(get);
+const btns = document.getElementsByClassName('handler_btn');
+console.log(btns);
 
-const plusBtn = document.querySelector('.screen-btn')
+const plusBtn = document.querySelector('.screen-btn');
 console.log(plusBtn);
 
 const otherItemsPercent = document.querySelectorAll('.other-items.percent');
@@ -14,7 +14,38 @@ console.log(otherItemsPercent);
 const otherItemsNumber = document.querySelectorAll('.other-items.number');
 console.log(otherItemsNumber);
 
+const inputRange = document.querySelector('.rollback input[type="range"]');
+console.log(inputRange);
 
+const rangeValue = document.querySelector('.rollback span.range-value');
+console.log(rangeValue);
+
+const totalInputs = Array.from(document.getElementsByClassName('total-input'));
+
+let totalInput1;
+let totalInput2;
+let totalInput3;
+let totalInput4;
+let totalInput5;
+
+totalInputs.forEach((input, index) => {
+    switch (index) {
+        case 0: totalInput1 = input
+        case 1: totalInput2 = input
+        case 2: totalInput3 = input
+        case 3: totalInput4 = input
+        case 4: totalInput5 = input
+    }
+})
+
+console.log(totalInput1);
+console.log(totalInput2);
+console.log(totalInput3);
+console.log(totalInput4);
+console.log(totalInput5);
+
+let screens = document.querySelectorAll('.screen')
+console.log(screens);
 
 /* const appData = {
     title: '',
