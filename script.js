@@ -20,19 +20,24 @@ const appData = {
 
         appData.logger();
     },
+
+    isNull: function (value) {
+        return value === null;
+    },
+
     isNumber: function (num) {
         return !isNaN(parseFloat(num) && isFinite(num));
     },
 
     isString: function (str) {
-        return isNaN(parseFloat(str) && isFinite(str));
+        return !appData.isNumber(str) && str.trim() !== '';
     },
 
     stringChecking: function (question, defaultValue) {
         let result;
         do {
             result = prompt(question, defaultValue);
-        } while (!appData.isString(result));
+        } while (appData.isNull(result) || !appData.isString(result));
         return result;
     },
 
@@ -40,7 +45,7 @@ const appData = {
         let result;
         do {
             result = prompt(question);
-        } while (!appData.isNumber(result));
+        } while (appData.isNull(result) || !appData.isNumber(result));
         return result;
     },
 
@@ -107,4 +112,4 @@ const appData = {
     }
 }
 
-appData.start();
+appData.start(); 
