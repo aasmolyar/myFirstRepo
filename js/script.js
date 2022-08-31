@@ -25,6 +25,9 @@ let input = document.querySelector('input');
 console.log('select', select);
 console.log('input', input);
 
+const collectionForMainControls = document.getElementsByClassName('main-controls__views element')[0];
+console.log('collectionForMainControls', collectionForMainControls)
+
 const appData = {
     title: '',
     screens: [],
@@ -45,14 +48,20 @@ const appData = {
         buttonPlus.addEventListener('click', appData.addScreenBlock);
         buttonPlus.addEventListener('click', appData.addScreens);
 
-        select.addEventListener('mouseleave', appData.stop);
-        input.addEventListener('mouseleave', appData.stop);
+        collectionForMainControls.addEventListener('mouseout', appData.stop);
+        collectionForMainControls.addEventListener('mouseout', appData.consoleLogControls);
 
-        select.addEventListener('mouseleave', appData.consoleLogScreen);
-        input.addEventListener('mouseleave', appData.consoleLogScreen);
+        /*         select.addEventListener('mouseleave', appData.stop);
+                input.addEventListener('mouseleave', appData.stop);
+        
+                select.addEventListener('mouseleave', appData.consoleLogScreen);
+                input.addEventListener('mouseleave', appData.consoleLogScreen); */
     },
     addTitle: function () {
         document.title = title.textContent;
+    },
+    consoleLogControls: function () {
+        console.log('вышли из дива');
     },
     consoleLogScreen: function () {
         console.log('screens ', appData.screens);
