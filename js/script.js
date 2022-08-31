@@ -8,8 +8,8 @@ const otherItemsNumber = document.querySelectorAll('.other-items.number');
 const inputRange = document.querySelector('.rollback input');
 const inputRangeValue = document.querySelector('.rollback .range-value');
 
-const startBtn = document.getElementsByClassName('handler_btn')[0]
-const resetBtn = document.getElementsByClassName('handler_btn')[1]
+const startBtn = document.getElementsByClassName('handler_btn')[0];
+const resetBtn = document.getElementsByClassName('handler_btn')[1];
 
 const total = document.getElementsByClassName('total-input')[0];
 const totalCount = document.getElementsByClassName('total-input')[1];
@@ -17,7 +17,13 @@ const totalCountOther = document.getElementsByClassName('total-input')[2];
 const fullTotalCount = document.getElementsByClassName('total-input')[3];
 const totslCountRollback = document.getElementsByClassName('total-input')[4];
 
-let screens = document.querySelectorAll('.screen')
+let screens = document.querySelectorAll('.screen');
+
+const select = document.querySelector('select');
+const input = document.querySelector('input');
+
+console.log('select', select);
+console.log('input', input);
 
 const appData = {
     title: '',
@@ -34,16 +40,42 @@ const appData = {
 
     init: function () {
         appData.addTitle();
+        appData.stop();
         startBtn.addEventListener('click', appData.start);
         buttonPlus.addEventListener('click', appData.addScreenBlock);
+
+        let screens = document.querySelectorAll('.screen');
+        console.log(screens)
+        screens.addEventListener('mouseleave', appData.stop);
+
+
+        select.addEventListener('mouseleave', appData.stop);
+        input.addEventListener('mouseleave', appData.stop);
     },
     addTitle: function () {
         document.title = title.textContent;
     },
+
+    stop: function () {
+        screens = document.querySelectorAll('.screen') //коллекция всех экранов
+        //debugger
+        screens.forEach(function (screen, index) {              //перебираем кажд элемент из screens
+            const select = screen.querySelector('select');      //коллекция селектов
+            const input = screen.querySelector('input');        //количество экранов, сколько вбили
+            const selectName = select.options[select.selectedIndex];  //достаем текст из селекта: "Простых 500 р"
+
+            if (input.value === '' || selectName.value === '') {
+                startBtn.setAttribute('disabled', true);
+                console.log('Убили кнопку');
+            } else {
+                startBtn.removeAttribute('disabled');
+                console.log('Включили кнопку');
+            }
+        })
+    },
     start: function () {
         appData.addScreens();
         appData.addServices();
-
         appData.addPrices();
         /*  
          appData.getServicePercentPrices();
@@ -81,13 +113,13 @@ const appData = {
         totalCountOther.value = appData.servicePricesPercent + appData.servicePricesNumber;
         fullTotalCount.value = appData.fullPrice
     },
-    addScreens: function () {
-        screens = document.querySelectorAll('.screen')
+    addScreens: function () {                        //функция добавления экранов
+        screens = document.querySelectorAll('.screen') //коллекция всех экранов
 
-        screens.forEach(function (screen, index) {
-            const select = screen.querySelector('select');
-            const input = screen.querySelector('input');
-            const selectName = select.options[select.selectedIndex].textContent;
+        screens.forEach(function (screen, index) {              //перебираем кажд элемент из screens
+            const select = screen.querySelector('select');      //коллекция селектов
+            const input = screen.querySelector('input');        //количество экранов, сколько вбили
+            const selectName = select.options[select.selectedIndex].textContent;  //достаем текст из селекта: "Простых 500 р"
 
             appData.screens.push({
                 id: index,
@@ -104,7 +136,7 @@ const appData = {
             const input = item.querySelector('input[type=text]');
 
             if (check.checked) { //если флажок выбран,
-                appData.servicesPercent[label.textContent] = +input.value; //попадают свойства
+                appData.servicesPercent[label.textContent] = +input.value; //попадают в лэйбл введенное значение
             }
         })
 
