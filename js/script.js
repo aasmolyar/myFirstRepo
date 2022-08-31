@@ -19,8 +19,8 @@ const totslCountRollback = document.getElementsByClassName('total-input')[4];
 
 let screens = document.querySelectorAll('.screen');
 
-const select = document.querySelector('select');
-const input = document.querySelector('input');
+let select = document.querySelector('select');
+let input = document.querySelector('input');
 
 console.log('select', select);
 console.log('input', input);
@@ -43,25 +43,26 @@ const appData = {
         appData.stop();
         startBtn.addEventListener('click', appData.start);
         buttonPlus.addEventListener('click', appData.addScreenBlock);
-
-        let screens = document.querySelectorAll('.screen');
-        console.log(screens)
-        screens.addEventListener('mouseleave', appData.stop);
-
+        buttonPlus.addEventListener('click', appData.addScreens);
 
         select.addEventListener('mouseleave', appData.stop);
         input.addEventListener('mouseleave', appData.stop);
+
+        select.addEventListener('mouseleave', appData.consoleLogScreen);
+        input.addEventListener('mouseleave', appData.consoleLogScreen);
     },
     addTitle: function () {
         document.title = title.textContent;
     },
-
+    consoleLogScreen: function () {
+        console.log('screens ', appData.screens);
+    },
     stop: function () {
         screens = document.querySelectorAll('.screen') //коллекция всех экранов
         //debugger
         screens.forEach(function (screen, index) {              //перебираем кажд элемент из screens
-            const select = screen.querySelector('select');      //коллекция селектов
-            const input = screen.querySelector('input');        //количество экранов, сколько вбили
+            select = screen.querySelector('select');      //коллекция селектов
+            input = screen.querySelector('input');        //количество экранов, сколько вбили
             const selectName = select.options[select.selectedIndex];  //достаем текст из селекта: "Простых 500 р"
 
             if (input.value === '' || selectName.value === '') {
@@ -113,7 +114,7 @@ const appData = {
         totalCountOther.value = appData.servicePricesPercent + appData.servicePricesNumber;
         fullTotalCount.value = appData.fullPrice
     },
-    addScreens: function () {                        //функция добавления экранов
+    addScreens: function () {                        //функция добавления экранов в массив
         screens = document.querySelectorAll('.screen') //коллекция всех экранов
 
         screens.forEach(function (screen, index) {              //перебираем кажд элемент из screens
@@ -154,7 +155,7 @@ const appData = {
         const cloneScreen = screens[0].cloneNode(true);  // создаем копию первого эл-та в коллекции screens
 
         screens[screens.length - 1].after(cloneScreen);
-        console.log(cloneScreen);
+        appData.stop();
     },
 
     addPrices: function () {
