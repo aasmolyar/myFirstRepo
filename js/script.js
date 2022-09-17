@@ -20,7 +20,9 @@ const totalCountRollback = document.getElementsByClassName('total-input')[4];
 let screens = document.querySelectorAll('.screen');
 
 let select = document.querySelector('select');
+console.log(select);
 let input = document.querySelector('input');
+console.log(input);
 
 const collectionForMainControls = document.getElementsByClassName('main-controls__views element')[0];
 
@@ -41,14 +43,19 @@ const appData = {
     init: function () {
         this.addTitle();
         this.stop();
-        startBtn.addEventListener('click', start.bind(appData));
-        buttonPlus.addEventListener('click', addScreenBlock.bind(appData));
+        startBtn.addEventListener('click', this.start.bind(appData));
+        startBtn.addEventListener('click', this.disableItems.bind(appData));//==========================
 
-        collectionForMainControls.addEventListener('mouseout', stop.bind(appData));
+        buttonPlus.addEventListener('click', this.addScreenBlock.bind(appData));
 
-        inputRange.addEventListener('input', logger1.bind(appData));
-        inputRange.addEventListener('change', getRollBack.bind(appData));
+        collectionForMainControls.addEventListener('mouseout', this.stop.bind(appData));
 
+        inputRange.addEventListener('input', this.logger1.bind(appData));
+        inputRange.addEventListener('change', this.getRollBack.bind(appData));
+
+    },
+    disableItems: function () {    // глушим селект//==========================
+        select.disabled = true;
     },
     getRollBack: function () {
         this.rollback = inputRangeValue.textContent;
@@ -76,12 +83,12 @@ const appData = {
         })
     },
     start: function () {
-        addScreens.bind(appData);
-        addServices.bind(appData);
-        addPrices.bind(appData);
+        this.addScreens.bind(appData);
+        this.addServices.bind(appData);
+        this.addPrices.bind(appData);
         /*appData.getServicePercentPrices();
          appData.logger(); */
-        showResult.bind(appData);
+        this.showResult.bind(appData);
     },
 
     isNull: function (value) {
@@ -154,7 +161,6 @@ const appData = {
     },
     addScreenBlock: function () {
         const cloneScreen = screens[0].cloneNode(true);  // создаем копию первого эл-та в коллекции screens
-
         screens[screens.length - 1].after(cloneScreen);
         this.stop();
     },
