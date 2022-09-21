@@ -53,7 +53,7 @@ const appData = {
     stop: function () {
         screens = document.querySelectorAll('.screen') //коллекция всех экранов
         //debugger
-        screens.forEach(function (screen, index) {              //перебираем кажд элемент из screens
+        screens.forEach((screen, index) => {              //перебираем кажд элемент из screens
             select = screen.querySelector('select');      //коллекция селектов
             input = screen.querySelector('input');        //количество экранов, сколько вбили
             const selectName = select.options[select.selectedIndex];  //достаем текст из селекта: "Простых 500 р"
@@ -67,12 +67,12 @@ const appData = {
     },
     start: function () {
         console.log('start');
-        this.addScreens.bind(appData);
-        this.addServices.bind(appData);
-        this.addPrices.bind(appData);
+        this.addScreens.call(appData);
+        this.addServices.call(appData);
+        this.addPrices.call(appData);
         //appData.getServicePercentPrices();
-        this.logger.bind(appData);
-        this.showResult.bind(appData);
+        this.logger.call(appData);
+        this.showResult.call(appData);
     },
     isNull: function (value) {
         return value === null;
@@ -87,7 +87,6 @@ const appData = {
         } while (appData.isNull(result) || !appData.isString(result));
         return result;
     },
-
     numberChecking: function (question) {
         let result;
         do {
@@ -98,11 +97,13 @@ const appData = {
 
     showResult: function () {
         console.log('enter showResult');
-        total.value = this.screenPrice;
-        totalCountOther.value = this.servicePricesPercent + this.servicePricesNumber;
-        fullTotalCount.value = this.fullPrice;
-        totalCountRollback.value = this.servicePercentPrice;
-        totalCount.value = this.screenCount;
+        const self = this;
+
+        total.value = self.screenPrice;
+        totalCountOther.value = self.servicePricesPercent + self.servicePricesNumber;
+        fullTotalCount.value = self.fullPrice;
+        totalCountRollback.value = self.servicePercentPrice;
+        totalCount.value = self.screenCount;
 
         console.log(total.value);
         console.log(totalCountOther.value);
@@ -113,13 +114,14 @@ const appData = {
     addScreens: function () {                        //функция добавления экранов в массив
         console.log('addScreens');
         screens = document.querySelectorAll('.screen') //коллекция всех экранов
+        const self = this;
 
-        screens.forEach(function (screen, index) {              //перебираем кажд элемент из screens
+        screens.forEach((screen, index) => {              //перебираем кажд элемент из screens
             const select = screen.querySelector('select');      //коллекция селектов
             const input = screen.querySelector('input');        //количество экранов, сколько вбили
             const selectName = select.options[select.selectedIndex].textContent;  //достаем текст из селекта: "Простых 500 р"
 
-            this.screens.push({
+            self.screens.push({
                 id: index,
                 name: selectName,
                 price: +select.value * +input.value,
@@ -128,23 +130,24 @@ const appData = {
         })
     },
     addServices: function () {
-        otherItemsPercent.forEach(function (item) {
+        const self = this;
+
+        otherItemsPercent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');//значение, выбран ли флажок в чекбоксе
             const label = item.querySelector('label');
             const input = item.querySelector('input[type=text]');
 
             if (check.checked) { //если флажок выбран,
-                appData.servicesPercent[label.textContent] = +input.value; //попадают в лэйбл введенное значение
+                self.servicesPercent[label.textContent] = +input.value; //попадают в лэйбл введенное значение
             }
         })
-
-        otherItemsNumber.forEach(function (item) {
+        otherItemsNumber.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');//значение, выбран ли флажок в чекбоксе
             const label = item.querySelector('label');
             const input = item.querySelector('input[type=text]');
 
             if (check.checked) { //если флажок выбран,
-                appData.servicesNumber[label.textContent] = +input.value; //попадают свойства
+                self.servicesNumber[label.textContent] = +input.value; //попадают свойства
             }
         })
     },
@@ -179,7 +182,6 @@ const appData = {
         console.log(appData.screens);
         console.log('screenPrice', + appData.screenPrice);
         console.log(appData.services);
-        console.log('allServicePrices', + appData.allServicePrices);
         console.log('servicePercentPrice', + appData.servicePercentPrice);
     }
 }
