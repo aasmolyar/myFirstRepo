@@ -36,11 +36,39 @@ const appData = {
         this.addTitle();
         this.stop();
         startBtn.addEventListener('click', this.start.bind(appData));
+        startBtn.addEventListener('click', this.disableItems.bind(appData)); //=================================
+        startBtn.addEventListener('click', this.ShowHidebtnBtn.bind(appData));   //=================================
+        resetBtn.addEventListener('click', this.reset.bind(appData));   //=================================
+
         buttonPlus.addEventListener('click', this.addScreenBlock.bind(appData));
         collectionForMainControls.addEventListener('mouseout', this.stop.bind(appData));
         inputRange.addEventListener('input', this.logger1.bind(appData));
         inputRange.addEventListener('change', this.getRollBack.bind(appData));
     },
+    disableItems: function () {
+        const disabledSelect = document.querySelector('[name="views-select"]').disabled = true;
+        const disabledInput = document.querySelector('[type="text"]').disabled = true;
+    },
+    ShowHidebtnBtn: function () {
+        startBtn.hidden = true;
+        resetBtn.style.display = 'block';
+    },
+    reset: function () {  //===============================!!!!!!!!!!!!!!================================
+        this.showStartBtn.call(appData);
+        this.hideResetBtn.call(appData);
+        this.unblockItems.call(appData);
+    },
+    showStartBtn() { //=========================
+        startBtn.hidden = false;
+    },
+    hideResetBtn: function () {  //=========================
+        resetBtn.style.display = 'none';
+    },
+    unblockItems: function () {
+        const unblockSelect = document.querySelector('[name="views-select"]').disabled = false;
+        const unblockInput = document.querySelector('[type="text"]').disabled = false;
+    },
+
     getRollBack: function () {
         this.rollback = inputRangeValue.textContent;
     },
@@ -66,12 +94,11 @@ const appData = {
         })
     },
     start: function () {
-        console.log('start');
         this.addScreens.call(appData);
         this.addServices.call(appData);
         this.addPrices.call(appData);
         //appData.getServicePercentPrices();
-        this.logger.call(appData);
+        //this.logger.call(appData);
         this.showResult.call(appData);
     },
     isNull: function (value) {
@@ -96,7 +123,6 @@ const appData = {
     },
 
     showResult: function () {
-        console.log('enter showResult');
         const self = this;
 
         total.value = self.screenPrice;
@@ -104,15 +130,8 @@ const appData = {
         fullTotalCount.value = self.fullPrice;
         totalCountRollback.value = self.servicePercentPrice;
         totalCount.value = self.screenCount;
-
-        console.log(total.value);
-        console.log(totalCountOther.value);
-        console.log(fullTotalCount.value);
-        console.log(totalCountRollback.value);
-        console.log(totalCount.value);
     },
     addScreens: function () {                        //функция добавления экранов в массив
-        console.log('addScreens');
         screens = document.querySelectorAll('.screen') //коллекция всех экранов
         const self = this;
 
@@ -152,15 +171,12 @@ const appData = {
         })
     },
     addScreenBlock: function () {
-        console.log('addScreenBlock');
         const cloneScreen = screens[0].cloneNode(true);  // создаем копию первого эл-та в коллекции screens
-        console.log(cloneScreen);
 
         screens[screens.length - 1].after(cloneScreen);
         this.stop();
     },
     addPrices: function () {
-        console.log('addPrices');
 
         for (let screen of this.screens) {
             this.screenPrice += +screen.price;
@@ -177,12 +193,12 @@ const appData = {
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
         this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100));
     },
-    logger: function () {
-        console.log('fullPrice', + appData.fullPrice);
-        console.log(appData.screens);
-        console.log('screenPrice', + appData.screenPrice);
-        console.log(appData.services);
-        console.log('servicePercentPrice', + appData.servicePercentPrice);
-    }
+    /*     logger: function () {
+            console.log('fullPrice', + appData.fullPrice);
+            console.log(appData.screens);
+            console.log('screenPrice', + appData.screenPrice);
+            console.log(appData.services);
+            console.log('servicePercentPrice', + appData.servicePercentPrice);
+        } */
 }
 appData.init(); 
