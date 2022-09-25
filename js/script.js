@@ -17,6 +17,7 @@ let screens = document.querySelectorAll('.screen');
 let select = document.querySelector('select');
 let input = document.querySelector('input');
 const collectionForMainControls = document.getElementsByClassName('main-controls__views element')[0];
+const totalInput = document.getElementsByClassName('total-input'); //========================================
 
 const appData = {
     title: '',
@@ -36,8 +37,6 @@ const appData = {
         this.addTitle();
         this.stop();
         startBtn.addEventListener('click', this.start.bind(appData));
-        startBtn.addEventListener('click', this.disableItems.bind(appData)); //=================================
-        startBtn.addEventListener('click', this.ShowHidebtnBtn.bind(appData));   //=================================
         resetBtn.addEventListener('click', this.reset.bind(appData));   //=================================
 
         buttonPlus.addEventListener('click', this.addScreenBlock.bind(appData));
@@ -45,30 +44,71 @@ const appData = {
         inputRange.addEventListener('input', this.logger1.bind(appData));
         inputRange.addEventListener('change', this.getRollBack.bind(appData));
     },
-    disableItems: function () {
-        const disabledSelect = document.querySelector('[name="views-select"]').disabled = true;
-        const disabledInput = document.querySelector('[type="text"]').disabled = true;
+    disableItems: function () {    //==============================
+        console.log('screens', screens);
+        screens.forEach((screen, index) => {              //перебираем кажд элемент из screens
+            document.getElementsByTagName('select')[index].disabled = true;
+            document.getElementsByTagName('input')[index].disabled = true;
+        })
     },
-    ShowHidebtnBtn: function () {
+    ShowHidebtnBtn: function () {  //==========================
         startBtn.hidden = true;
         resetBtn.style.display = 'block';
     },
+
     reset: function () {  //===============================!!!!!!!!!!!!!!================================
         this.showStartBtn.call(appData);
         this.hideResetBtn.call(appData);
         this.unblockItems.call(appData);
+        this.cleaningInput.call(appData);
+        this.cleaningScreensArray.call(appData);
+        this.setInitialValueOfScreens.call(appData);
+        this.deleteAddedScreenBlocks.call(appData);
     },
-    showStartBtn() { //=========================
+    showStartBtn: function () { //=========================
         startBtn.hidden = false;
     },
-    hideResetBtn: function () {  //=========================
+    hideResetBtn: function () {  //========================= 
         resetBtn.style.display = 'none';
     },
-    unblockItems: function () {
-        const unblockSelect = document.querySelector('[name="views-select"]').disabled = false;
-        const unblockInput = document.querySelector('[type="text"]').disabled = false;
+    deleteAddedScreenBlocks: function () {
+        const views = document.querySelectorAll('[name="views-select"]'); // коллекция селектов
+        console.log('views.length ', views.length);
+        let counter = views.length;
+        console.log('counter', counter);
+        views.forEach((item, index) => {
+            if (counter !== 1) {
+                console.log('зашли в if');
+                const mainControls = document.getElementsByClassName('main-controls__item screen')[counter - 1]/*. remove() */;
+                //mainControls.remove();
+                console.log('mainControls', mainControls);
+                counter--;
+                console.log('counter2 ', counter);
+            }
+        })
+    },
+    unblockItems: function () {  //=========================
+        document.querySelector('[name="views-select"]').disabled = false;
+        document.querySelector('[type="text"]').disabled = false;
+    },
+    cleaningInput: function () { // чистим окошки input справа
+        const totalInputArray = Array.from(totalInput); // переводим html коллекцию в массив
+        console.log('totalInputArray ', totalInputArray);
+        for (const input of totalInputArray) { // для каждого инпута 
+            input.value = '0';                 // присваиваем "0"
+        }
+    },
+    cleaningScreensArray: function () {         // чистим массив скринс
+        this.screens.length = 0;                // обнуляем массив
+    },
+    setInitialValueOfScreens: function () {      // устанавливаем начальные значения для ввода и инпута
+        const input = document.querySelector('input');  //коллекция инпутов
+        input.value = '';
+        select = document.querySelector('select');      //коллекция селектов
+        select.value = '';
     },
 
+    //==============================================!!!!!!!!!!!!!!!!!!!!!======================================
     getRollBack: function () {
         this.rollback = inputRangeValue.textContent;
     },
@@ -100,6 +140,8 @@ const appData = {
         //appData.getServicePercentPrices();
         //this.logger.call(appData);
         this.showResult.call(appData);
+        this.disableItems.call(appData); //================================
+        this.ShowHidebtnBtn.call(appData);  //================================
     },
     isNull: function (value) {
         return value === null;
@@ -136,8 +178,8 @@ const appData = {
         const self = this;
 
         screens.forEach((screen, index) => {              //перебираем кажд элемент из screens
-            const select = screen.querySelector('select');      //коллекция селектов
-            const input = screen.querySelector('input');        //количество экранов, сколько вбили
+            const select = screen.querySelector('select');      // селекты
+            const input = screen.querySelector('input');        // инпуты
             const selectName = select.options[select.selectedIndex].textContent;  //достаем текст из селекта: "Простых 500 р"
 
             self.screens.push({
@@ -172,7 +214,6 @@ const appData = {
     },
     addScreenBlock: function () {
         const cloneScreen = screens[0].cloneNode(true);  // создаем копию первого эл-та в коллекции screens
-
         screens[screens.length - 1].after(cloneScreen);
         this.stop();
     },
