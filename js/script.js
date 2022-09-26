@@ -45,7 +45,6 @@ const appData = {
         inputRange.addEventListener('change', this.getRollBack.bind(appData));
     },
     disableItems: function () {    //==============================
-        console.log('screens', screens);
         screens.forEach((screen, index) => {              //перебираем кажд элемент из screens
             document.getElementsByTagName('select')[index].disabled = true;
             document.getElementsByTagName('input')[index].disabled = true;
@@ -64,36 +63,40 @@ const appData = {
         this.cleaningScreensArray.call(appData);
         this.setInitialValueOfScreens.call(appData);
         this.deleteAddedScreenBlocks.call(appData);
+        this.resetInputRange.call(appData);
+        this.enableInputRange.call(appData);
     },
-    showStartBtn: function () { //=========================
+    enableInputRange: function () {
+        inputRange.disabled = false;
+    },
+    resetInputRange: function () {  //=========================
+        inputRange.value = 0;
+        inputRangeValue.textContent = 0;
+    },
+    showStartBtn: function () {
         startBtn.hidden = false;
     },
-    hideResetBtn: function () {  //========================= 
+    hideResetBtn: function () {
         resetBtn.style.display = 'none';
     },
     deleteAddedScreenBlocks: function () {
-        const views = document.querySelectorAll('[name="views-select"]'); // коллекция селектов
-        console.log('views.length ', views.length);
-        let counter = views.length;
-        console.log('counter', counter);
-        views.forEach((item, index) => {
-            if (counter !== 1) {
-                console.log('зашли в if');
-                const mainControls = document.getElementsByClassName('main-controls__item screen')[counter - 1]/*. remove() */;
-                //mainControls.remove();
-                console.log('mainControls', mainControls);
-                counter--;
-                console.log('counter2 ', counter);
+        const mainControls = document.getElementsByClassName('main-controls__item screen');
+        const mainControlsArray = Array.from(mainControls);
+        let mainControlsArrayLength = mainControlsArray.length;
+
+        mainControlsArray.forEach((item, index) => {
+            if (mainControlsArrayLength !== 1) {
+                mainControlsArray[mainControlsArrayLength - 1].remove();
+                mainControlsArrayLength--;
             }
         })
     },
-    unblockItems: function () {  //=========================
+    unblockItems: function () {
         document.querySelector('[name="views-select"]').disabled = false;
         document.querySelector('[type="text"]').disabled = false;
     },
     cleaningInput: function () { // чистим окошки input справа
         const totalInputArray = Array.from(totalInput); // переводим html коллекцию в массив
-        console.log('totalInputArray ', totalInputArray);
         for (const input of totalInputArray) { // для каждого инпута 
             input.value = '0';                 // присваиваем "0"
         }
@@ -107,7 +110,6 @@ const appData = {
         select = document.querySelector('select');      //коллекция селектов
         select.value = '';
     },
-
     //==============================================!!!!!!!!!!!!!!!!!!!!!======================================
     getRollBack: function () {
         this.rollback = inputRangeValue.textContent;
@@ -140,8 +142,12 @@ const appData = {
         //appData.getServicePercentPrices();
         //this.logger.call(appData);
         this.showResult.call(appData);
-        this.disableItems.call(appData); //================================
-        this.ShowHidebtnBtn.call(appData);  //================================
+        this.disableItems.call(appData);     //================================
+        this.ShowHidebtnBtn.call(appData);   //================================
+        this.disableInputRange.call(appData); //================================
+    },
+    disableInputRange: function () {
+        inputRange.disabled = true;
     },
     isNull: function (value) {
         return value === null;
