@@ -24,9 +24,9 @@ DomElement.prototype.createElem = function () {
 
     this.elem.innerHTML = "<strong>Всем привет!</strong>";
     this.elem.style.cssText = `background-color: ${this.bg};
-    height: this.height;
-    width: this.width;
-    fontSize: this.fontSize;
+    height: ${this.height};
+    width: ${this.width};
+    fontSize: ${this.fontSize};
   `;
 
     document.body.append(this.elem);
