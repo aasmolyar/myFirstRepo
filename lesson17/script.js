@@ -1,23 +1,52 @@
 'use strict'
 
-class FIrst {
+class Worker {
 
-    hello() {
-        console.log('Привет, я метод родителя');
+    constructor(name, lastName, age, position) {
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.position = position;
     }
-
 };
 
-class Second extends FIrst {
+const worker = new Worker();
 
-    hello() {
-        super.hello();
-        console.log('А я наследуемый метод');
+class Locksmith extends Worker {
+
+    constructor(name, lastName, age, position, organisation, category, skills = []) {
+        super(name, lastName, age, position);
+        this._organisation = organisation;
+        this.category = category;
+        this._skills = skills;
     }
 
-}
+    get organisation() {
+        return this._skills;
+    };
 
-const call = new Second();
+    set skills(str) {
+        this.skills.push(str)
+    }
+};
 
-call.hello();
+const locksmith = new Locksmith();
+
+locksmith.skills = 'welding';
+
+
+class Driver extends Worker {
+
+    constructor(name, lastName, age, position, children, dateOfEmployment) {
+        super(name, lastName, age, position);
+        this._children = children;
+        this.dateOfEmployment = dateOfEmployment;
+    }
+
+    get children() {
+        return this._children;
+    }
+};
+
+const driver = new Driver();
 
