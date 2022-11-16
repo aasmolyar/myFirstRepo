@@ -10,8 +10,32 @@
 
 <body>
 
-    <form action="">
-        <p><input type="text"></p>
+    <form action="#">
+        <p><b>Введите данные о себе</b></p>
+
+        <label>Имя</label>
+        <p><input type="text" id="first_name" placeholder="Имя" name="name"></p>
+
+        <label>Фамилия</label>
+        <p><input type="text" id="last_name" placeholder="Фамилия" name="lastName"></p>
+
+        <label for="have_children"> У меня есть дети
+            <p><input type="checkbox" id="have_children"></p>
+        </label>
+
+        <label>Какая у Вас специальность?</label> <br> <br>
+        <select name="profession" id="user_profession">
+            <option value="">Слесарь</option>
+            <option value="">Водитель</option>
+        </select>
+        <br> <br>
+
+        <p>
+            <button>
+                Сохранить
+            </button>
+        </p>
+
     </form>
 
     <script defer src="./script.js"></script>
