@@ -9,6 +9,11 @@
 </head>
 
 <body>
+    <style>
+        body {
+            background-color: azure;
+        }
+    </style>
 
     <form action="#">
         <p><b>Введите данные о себе</b></p>
@@ -18,6 +23,18 @@
 
         <label>Фамилия</label>
         <p><input type="text" id="last_name" placeholder="Фамилия" name="lastName"></p>
+
+        <label>Организация</label>
+        <p><input type="text" id="organisation" placeholder="Организация" name="organisation"></p>
+
+        <label>Разряд</label>
+        <p><input type="text" id="category" placeholder="Разряд" name="category"></p>
+
+        <label>Навыки</label>
+        <p><input type="text" id="skills" placeholder="Навыки" name="category"></p>
+
+        <label>Дата трудоустройства</label>
+        <p><input type="date" id="employment_date" placeholder="Навыки" name="employment_date"></p>
 
         <label for="have_children"> У меня есть дети
             <p><input type="checkbox" id="have_children"></p>
@@ -31,12 +48,55 @@
         <br> <br>
 
         <p>
-            <button>
-                Сохранить
+            <button id="btn">
+                <b>Сохранить</b>
             </button>
         </p>
 
     </form>
+
+    <table border="2" align="center">
+        <caption><b>Информация по работникам</b></caption>
+        <col width="100" span="8">
+        <tr>
+            <td>Должность</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Возраст</td>
+            <td>Организация</td>
+            <td>Разряд</td>
+            <td>Навыки</td>
+            <td>Дети</td>
+            <td>Дата трудоустройства</td>
+            <td bgcolor="purple"></td>
+        </tr>
+
+        <tr>
+            <td>Водитель</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td <col width="120" align="center" style="background-color: purple"> <button>Удалить</button></td>
+        </tr>
+
+        <tr>
+            <td>Слесарь</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td bgcolor="purple"></td>
+        </tr>
+    </table>
 
     <script defer src="./script.js"></script>
 </body>

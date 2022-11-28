@@ -1,5 +1,45 @@
 'use strict'
 
+const userProfession = document.getElementById('user_profession');
+const userName = document.getElementById('first_name');
+const userLastName = document.getElementById('last_name');
+const userOrganisation = document.getElementById('organisation');
+const userCategory = document.getElementById('category');
+const userSkills = document.getElementById('skills');
+const userEmploymentDate = document.getElementById('employment_date');
+const userChildren = document.getElementById('have_children');
+const button = document.getElementById('btn');
+
+let userInfo = {};
+let userInfoArray = [];
+
+
+button.addEventListener('click', personInfo);
+button.addEventListener('click', createArray);
+
+//создаем объект
+function personInfo() {
+    userInfo = {
+        userProfession: userProfession.value,
+        userName: userName.value,
+        userLastName: userLastName.value,
+        userOrganisation: userOrganisation.value,
+        userCategory: userCategory.value,
+        userSkills: userSkills.value,
+        userEmploymentDate: userEmploymentDate.value,
+        userChildren: userChildren.value,
+    }
+    console.log('userInfo', userInfo);
+};
+
+// создаем массив из объекта
+function createArray() {
+    let userInfoArray = Object.entries(userInfo);
+    console.log(userInfoArray);
+};
+
+//--------------------------------------------------------------------------------------
+
 class Worker {
 
     constructor(name, lastName, age, position) {
@@ -23,9 +63,7 @@ class Worker {
 
 const worker = new Worker();
 
-console.log(Worker.getCount());
-
-
+// создаем класс слесарь на основе рабочего
 class Locksmith extends Worker {
 
     constructor(name, lastName, age, position, organisation, category, skills = [], married) {
@@ -51,18 +89,9 @@ class Locksmith extends Worker {
 
 const locksmith = new Locksmith();
 
-locksmith.name = 'Alex';
-locksmith.age = 33;
-locksmith.position = 'master';
-locksmith.organisation = 'OOO MRK';
-locksmith.category = '6'; ''
-locksmith.skills = 'welding';
-locksmith.skills = 'electricTools';
-locksmith.married = true;
-
 locksmith.sayHello();
 
-
+// создаем класс Водитель на основе рабочего
 class Driver extends Worker {
 
     constructor(name, lastName, age, position, children, dateOfEmployment) {
@@ -86,26 +115,4 @@ class Driver extends Worker {
 
 const driver = new Driver();
 
-driver.name = 'Igor';
-driver.age = 39;
-driver.position = 'gazelDriver';
-driver.organisation = 'OOO MMK';
-driver.category = '4';
-
 driver.sayHello();
-
-console.log(locksmith.name);
-console.log(locksmith.age);
-console.log(locksmith.skills);
-console.log(locksmith.organisation);
-
-console.log(driver.name);
-console.log(driver.age);
-console.log(driver.position);
-console.log(driver.organisation);
-console.log(driver.category);
-
-// chicking the weight of our objects 
-
-console.log(JSON.stringify(locksmith).length);
-console.log(JSON.stringify(driver).length);
