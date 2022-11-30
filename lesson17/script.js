@@ -13,9 +13,12 @@ const button = document.getElementById('btn');
 let userInfo = {};
 let userInfoArray = [];
 
-
+button.addEventListener('click', (event) => {  //запрещаем перезагрузку
+    event.preventDefault()
+});
 button.addEventListener('click', personInfo);
 button.addEventListener('click', createArray);
+button.addEventListener('click', setuUerInfoArrayToLocalStorage);
 
 //создаем объект
 function personInfo() {
@@ -29,15 +32,20 @@ function personInfo() {
         userEmploymentDate: userEmploymentDate.value,
         userChildren: userChildren.value,
     }
-    console.log('userInfo', userInfo);
+    console.log('Object userInfo', userInfo);
 };
 
 // создаем массив из объекта
 function createArray() {
     let userInfoArray = Object.entries(userInfo);
-    console.log(userInfoArray);
+    console.log('userInfoArray', userInfoArray);
 };
 
+// заносим в localStorage - функция
+function setuUerInfoArrayToLocalStorage() {
+    localStorage.userInfoArray = JSON.stringify(userInfoArray);
+    console.log('localStorage', localStorage);
+};
 //--------------------------------------------------------------------------------------
 
 class Worker {
