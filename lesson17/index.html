@@ -6,12 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script defer src="./script.js"></script>
 </head>
 
 <body>
     <style>
         body {
-            background-color: azure;
+            background-color: rgb(242, 247, 246);
+        }
+        table {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+        table, td, th {
+            border: 1px solid black;
+        }
+
+        tr {
+            height: 25px;
+        }
+        td {
+            text-align: center;
         }
     </style>
 
@@ -24,6 +40,9 @@
         <label>Фамилия</label>
         <p><input type="text" id="last_name" placeholder="Фамилия" name="lastName"></p>
 
+        <label>Возраст</label>
+        <p><input type="text" id="age" placeholder="Возраст" name="age"></p>
+
         <label>Организация</label>
         <p><input type="text" id="organisation" placeholder="Организация" name="organisation"></p>
 
@@ -31,10 +50,14 @@
         <p><input type="text" id="category" placeholder="Разряд" name="category"></p>
 
         <label>Навыки</label>
-        <p><input type="text" id="skills" placeholder="Навыки" name="category"></p>
+        <p><input type="text" id="skills" placeholder="Навыки" name="skills"></p>
 
         <label>Дата трудоустройства</label>
         <p><input type="date" id="employment_date" placeholder="Навыки" name="employment_date"></p>
+
+        <label for="userMarried"> Я в браке
+            <p><input type="checkbox" id="userMarried"></p>
+        </label>
 
         <label for="have_children"> У меня есть дети
             <p><input type="checkbox" id="have_children"></p>
@@ -42,63 +65,37 @@
 
         <label>Какая у Вас специальность?</label> <br> <br>
         <select name="profession" id="user_profession">
-            <option value="">Слесарь</option>
-            <option value="">Водитель</option>
+            <option value="Слесарь">Слесарь</option>
+            <option value="Водитель">Водитель</option>
         </select>
         <br> <br>
 
         <p>
             <button id="btn">
-                <b>Сохранить</b>
+                Сохранить
             </button>
         </p>
 
     </form>
 
-    <table border="2" align="center">
+    <table class="table table-striped" id="table">
         <caption><b>Информация по работникам</b></caption>
-        <col width="100" span="8">
-        <tr>
-            <td>Должность</td>
-            <td>Имя</td>
-            <td>Фамилия</td>
-            <td>Возраст</td>
-            <td>Организация</td>
-            <td>Разряд</td>
-            <td>Навыки</td>
-            <td>Дети</td>
-            <td>Дата трудоустройства</td>
-            <td bgcolor="purple"></td>
-        </tr>
+        <thead>
+            <th>Должность</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Семейное положение</th>
+            <th>Дети</th>
+            <th>Организация</th>
+            <th>Дата трудоустройства</th>
+            <th>Разряд</th>
+            <th>Навыки</th>
+            <th rowspan="3" <col width="120" align="center" style="background-color: purple"><button id="btnRemove">Удалить</button></th>
+        </thead>
+       <tbody id="tableBody">
 
-        <tr>
-            <td>Водитель</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td <col width="120" align="center" style="background-color: purple"> <button>Удалить</button></td>
-        </tr>
-
-        <tr>
-            <td>Слесарь</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td bgcolor="purple"></td>
-        </tr>
+       </tbody>
     </table>
-
-    <script defer src="./script.js"></script>
 </body>
-
 </html>
